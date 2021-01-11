@@ -1,5 +1,6 @@
 import base64
 
+
 def file_to_base64file(file, txt):
     with open(file, 'rb') as fileObj:
         image_data = fileObj.read()
@@ -7,6 +8,7 @@ def file_to_base64file(file, txt):
         fout = open(txt, 'w')
         fout.write(base64_data.decode())
         fout.close()
+
 
 def file_to_base64(file):
     with open(file, 'rb') as f:

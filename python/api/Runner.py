@@ -1,8 +1,7 @@
 """
 蓝奏网盘 API，封装了对蓝奏云的各种操作，解除了上传格式、大小限制
 """
-
-import os
+import base64
 import pickle
 import re
 import shutil
@@ -12,7 +11,6 @@ from random import shuffle, uniform
 from time import sleep
 from typing import List
 
-import requests
 from requests_toolbelt import MultipartEncoder, MultipartEncoderMonitor
 from urllib3 import disable_warnings
 from urllib3.exceptions import InsecureRequestWarning
@@ -20,6 +18,8 @@ from urllib3.exceptions import InsecureRequestWarning
 from models import *
 from t_variable import *
 from utils import *
+from cf_github import *
+import requests
 
 __all__ = ['LanZouCloud']
 
@@ -1310,10 +1310,10 @@ class LanZouCloud(object):
         except:
             return "exception"
 
-    def get_filename(self, loop_dirs):
+    def get_zip_name(self, loop_dirs):
         for file_list in os.listdir(loop_dirs):
             if file_list.endswith(".zip"):
-                print(file_list)
+                # print(file_list)
                 if file_list.endswith("/"):
                     conn = ""
                 else:
@@ -1322,16 +1322,54 @@ class LanZouCloud(object):
                 return path
         return ""
 
+    def get_url(self, base_url):
+        html = self.get_dir_list(base_url)
+        if not html:
+            return LanZouCloud.NETWORK_ERROR
+
+        print(html.text)
+        return ""
+
+
+def file_to_base64(file):
+    with open(file, 'rb') as f:
+        image_data = f.read()
+        base64_data = base64.b64encode(image_data)
+        return base64_data.decode()
+
+
+def get_file_name(file_path):
+    (filepath, tempfilename) = os.path.split(file_path)
+    # print("filepath: {}".format(filepath))
+    # print("tempfilename: {}".format(tempfilename))
+    # (filename,extension) = os.path.splitext(file_path)
+    # print("filename: {}".format(filename))
+    # print("extension: {}".format(extension))
+    return tempfilename
+
 
 if __name__ == '__main__':
-    save_dir = './data'
+    # save_dir = './data'
+    down_url = ''
     lanzou = LanZouCloud()
-    print("Setup 1: down file")
-    # https://souyunku.lanzous.com/b0aki3kna
-    # https://souyunku.lanzous.com/iVNwrk4g9fe
-    code = lanzou.down_file_by_url('https://souyunku.lanzous.com/b0aki3kna', '',
-                                   save_dir, overwrite=True)
+    share_url = 'https://souyunku.lanzous.com/b0aki3kna'
+    if is_folder_url(share_url):
+        folderDetail = lanzou.get_folder_info_by_url(share_url)
+        # print(folderDetail)
+        fdlist = folderDetail.files
+        # print(len(fdlist))
+        if len(fdlist) > 0:
+            fileInFolder = fdlist[0]
+            # print(fileInFolder)
+            down_url = fileInFolder.url
+    print("Setup 1: down file： [{}]".format(down_url))
+    code = lanzou.down_file_by_url(down_url, '',
+                                   os.getcwd(), overwrite=True)
     print("\tresult: {}".format(lanzou.get_result(code)))
-    print("Setup 2: get filename")
-    file_path = lanzou.get_filename(save_dir)
-    print("file_path:" + file_path)
+    print("Setup 2: get file path")
+    f_path = lanzou.get_zip_name(os.getcwd())
+    print("\tfile_path: [{}]".format(f_path))
+    f_name = get_file_name(f_path)
+    print("\tf_name: [{}]".format(f_name))
+    print("Setup 3: upload file to github")
+    update_filef(f_name)
