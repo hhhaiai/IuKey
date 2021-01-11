@@ -6,7 +6,7 @@ import urllib
 
 from api import B64s
 
-token = "5cd955c6ea12ef0640cbf02bb8a756d80eb80d9b"
+token = ""
 user = "hhhaiai"
 repo = "idea_register"
 path = ""
