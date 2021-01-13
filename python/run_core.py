@@ -18,7 +18,7 @@ from urllib3.exceptions import InsecureRequestWarning
 from models import *
 from t_variable import *
 from utils import *
-from cf_github import *
+from upload_2_github import *
 import requests
 
 __all__ = ['LanZouCloud']

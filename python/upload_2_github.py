@@ -4,7 +4,7 @@ import os
 import requests
 import urllib
 
-from api import B64s
+import file_2_base64
 
 token = ""
 user = "hhhaiai"
@@ -18,7 +18,7 @@ def update_filef(filename=''):
         url = "https://api.github.com/repos/{}/{}/contents/{}{}".format(user, repo, path, filename)
         # file_data=open_file(filename)
         headers = {"Authorization": "token " + token}
-        content = B64s.file_to_base64(filename)
+        content = file_2_base64.file_to_base64(filename)
         # print(content)
         data = {
             # "committer": {

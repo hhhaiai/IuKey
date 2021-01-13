@@ -1,6 +1,5 @@
 import base64
 
-
 def file_to_base64file(file, txt):
     with open(file, 'rb') as fileObj:
         image_data = fileObj.read()
