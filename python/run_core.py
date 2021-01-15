@@ -12,18 +12,12 @@
 """
 蓝奏网盘 API，封装了对蓝奏云的各种操作，解除了上传格式、大小限制
 """
-import base64
-import pickle
-import re
-import shutil
-import time
+import base64, os, pickle, re, shutil, time, requests
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 from random import shuffle, uniform
 from time import sleep
 from typing import List
-
-import requests
 from requests_toolbelt import MultipartEncoder, MultipartEncoderMonitor
 from urllib3 import disable_warnings
 from urllib3.exceptions import InsecureRequestWarning

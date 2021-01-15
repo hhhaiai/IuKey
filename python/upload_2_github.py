@@ -9,12 +9,7 @@
 @author: sanbo
 
 '''
-import json
-import urllib
-
-import requests
-
-import file_2_base64
+import json, urllib, requests, file_2_base64
 
 token = ""
 user = "hhhaiai"

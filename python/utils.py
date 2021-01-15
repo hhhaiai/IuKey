@@ -13,14 +13,9 @@
 API 处理网页数据、数据切片时使用的工具
 """
 
-import logging
-import os
-import pickle
-import re
+import logging, os, pickle, re, requests
 from datetime import timedelta, datetime
 from random import uniform, choices, sample, shuffle, choice
-
-import requests
 
 __all__ = ['logger', 'remove_notes', 'name_format', 'time_format', 'is_name_valid', 'is_file_url',
            'is_folder_url', 'big_file_split', 'un_serialize', 'let_me_upload', 'auto_rename']
