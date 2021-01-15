@@ -1,8 +1,18 @@
+#!/usr/bin/env python
+# -*- encoding: utf-8 -*-
+
+'''
+@Copyright © 2021 sanbo Inc. All rights reserved.
+@Description:
+@Version: 1.0
+@Create: 2021-01-15 12:33:23
+@author: sanbo
+
+'''
 import json
-# 文件名
-import os
-import requests
 import urllib
+
+import requests
 
 import file_2_base64
 
@@ -20,6 +30,7 @@ def update_filef(filename=''):
         headers = {"Authorization": "token " + token}
         content = file_2_base64.file_to_base64(filename)
         # print(content)
+        # print("content len: {}".format(len(content)))
         data = {
             # "committer": {
             #     "name": "sanbo",
@@ -40,9 +51,6 @@ def update_filef(filename=''):
         cdn_url = "https://cdn.jsdelivr.net/gh/{}/{}/{}{}".format(user, repo, path, urllib.parse.quote(filename))
         print("\tChina down path: {}".format(cdn_url))
         print("\tGithub download_url: " + down_url)
-    except:
-        pass
-    try:
-        os.remove(filename)
-    except:
+    except  Exception as e:
+        print('Reason:', e)
         pass

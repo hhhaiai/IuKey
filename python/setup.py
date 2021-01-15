@@ -1,13 +1,22 @@
-import setuptools
+#!/usr/bin/env python
+# -*- encoding: utf-8 -*-
 
-from api import version
+'''
+@Copyright © 2021 sanbo Inc. All rights reserved.
+@Description: 
+@Version: 1.0
+@Create: 2021-01-15 12:32:21
+@author: sanbo
+
+'''
+import setuptools
 
 with open("README.md", "r", encoding='utf8') as fh:
     long_description = fh.read()
 
 setuptools.setup(
     name="IuKey",
-    version=version,
+    version="1.2.0",
     author="sanbo",
     author_email="sanbo.xyz@gmail.com",
     description="Idea key Update. support:LanZouCloud API-2.5.8.2",

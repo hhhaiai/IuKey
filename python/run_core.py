@@ -1,3 +1,14 @@
+#!/usr/bin/env python
+# -*- encoding: utf-8 -*-
+
+'''
+@Copyright © 2021 sanbo Inc. All rights reserved.
+@Description: 
+@Version: 1.0
+@Create: 2021-01-15 11:49:23
+@author: sanbo
+
+'''
 """
 蓝奏网盘 API，封装了对蓝奏云的各种操作，解除了上传格式、大小限制
 """
@@ -5,21 +16,22 @@ import base64
 import pickle
 import re
 import shutil
+import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 from random import shuffle, uniform
 from time import sleep
 from typing import List
 
+import requests
 from requests_toolbelt import MultipartEncoder, MultipartEncoderMonitor
 from urllib3 import disable_warnings
 from urllib3.exceptions import InsecureRequestWarning
 
 from models import *
 from t_variable import *
-from utils import *
 from upload_2_github import *
-import requests
+from utils import *
 
 __all__ = ['LanZouCloud']
 
@@ -1348,10 +1360,26 @@ def get_file_name(file_path):
     return tempfilename
 
 
+def remove_file(file_name):
+    if os.path.exists(file_name):
+        os.remove(file_name)
+    if os.path.exists(file_name + ".download"):
+        os.remove(file_name + ".download")
+
+
+def clean_dir():
+    lp_dir = os.getcwd()
+    for file_name in os.listdir(lp_dir):
+        if file_name.endswith(".zip"):
+            remove_file(file_name)
+    pass
+
+
 if __name__ == '__main__':
-    # save_dir = './data'
-    down_url = ''
+    print("Setup 0: Clean work space...")
+    clean_dir()
     lanzou = LanZouCloud()
+    down_url = ''
     share_url = 'https://souyunku.lanzous.com/b0aki3kna'
     if is_folder_url(share_url):
         folderDetail = lanzou.get_folder_info_by_url(share_url)
@@ -1368,8 +1396,19 @@ if __name__ == '__main__':
     print("\tresult: {}".format(lanzou.get_result(code)))
     print("Setup 2: get file path")
     f_path = lanzou.get_zip_name(os.getcwd())
-    print("\tfile_path: [{}]".format(f_path))
     f_name = get_file_name(f_path)
-    print("\tf_name: [{}]".format(f_name))
-    print("Setup 3: upload file to github")
-    update_filef(f_name)
+
+    final_fn = "{}.zip".format(str(time.strftime("%y%m%d-%H%M%S")))
+    os.rename(f_name, final_fn)
+
+    print("\tfile_path: [{}]".format(final_fn))
+    try:
+        print("Setup 3: upload file to github")
+        update_filef(final_fn)
+    finally:
+        print("Setup 4: clean file in dir. after 5 min")
+        clean_dir()
+        pass
+
+    # f="210115-14011c8.zip"
+    # update_filef(f)

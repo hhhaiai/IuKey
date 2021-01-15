@@ -1,3 +1,14 @@
+#!/usr/bin/env python
+# -*- encoding: utf-8 -*-
+
+'''
+@Copyright © 2021 sanbo Inc. All rights reserved.
+@Description: 
+@Version: 1.0
+@Create: 2021-01-15 12:42:05
+@author: sanbo
+
+'''
 """
 API 处理网页数据、数据切片时使用的工具
 """

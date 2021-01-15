@@ -1,3 +1,15 @@
+#!/usr/bin/env python
+# -*- encoding: utf-8 -*-
+
+'''
+@Copyright © 2021 sanbo Inc. All rights reserved.
+@Description: 
+@Version: 1.0
+@Create: 2021-01-15 12:33:18
+@author: sanbo
+
+'''
+
 """
 API 处理后返回的数据类型
 """

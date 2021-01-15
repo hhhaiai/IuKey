@@ -1,3 +1,14 @@
+#!/usr/bin/env python
+# -*- encoding: utf-8 -*-
+
+'''
+@Copyright © 2021 sanbo Inc. All rights reserved.
+@Description: 
+@Version: 1.0
+@Create: 2021-01-15 11:49:16
+@author: sanbo
+
+'''
 """
 容器类，用于储存文件、文件夹，支持 list 的操作，同时支持许多方法方便操作元素
 元素类型为 namedtuple，至少拥有 name id 两个属性才能放入容器
