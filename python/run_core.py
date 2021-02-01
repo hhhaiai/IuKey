@@ -1379,11 +1379,24 @@ if __name__ == '__main__':
         folderDetail = lanzou.get_folder_info_by_url(share_url)
         # print(folderDetail)
         fdlist = folderDetail.files
-        # print(len(fdlist))
-        if len(fdlist) > 0:
+        lle = len(fdlist)
+        # print("len: {} ; fdList: {}; type: {}".format(str(lle),fdlist, type(fdlist)) )
+        if lle > 1:
+            for index in range(lle):
+                # print(fdlist[index])
+                fileInFolder = fdlist[index]
+                # print(fileInFolder)
+                pname = fileInFolder.name
+                if "全家桶" in pname:
+                    print(pname)
+                    down_url = fileInFolder.url
+                    break
+        elif lle == 1:
             fileInFolder = fdlist[0]
             # print(fileInFolder)
             down_url = fileInFolder.url
+        else:
+            down_url = ""
     print("Setup 1: down file： [{}]".format(down_url))
     code = lanzou.down_file_by_url(down_url, '',
                                    os.getcwd(), overwrite=True)
@@ -1403,6 +1416,3 @@ if __name__ == '__main__':
         print("Setup 4: clean file in dir. after 5 min")
         clean_dir()
         pass
-
-    # f="210115-14011c8.zip"
-    # update_filef(f)
