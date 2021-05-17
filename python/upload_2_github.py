@@ -12,10 +12,9 @@
 import json, urllib, requests, file_2_base64
 
 token = ""
-user = "hhhaiai"
-repo = "idea_register"
+user = ""
+repo = ""
 path = ""
-
 
 # 上传文件
 def update_filef(filename=''):

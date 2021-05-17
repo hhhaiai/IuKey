@@ -11,22 +11,20 @@
 '''
 import setuptools
 
-with open("README.md", "r", encoding='utf8') as fh:
-    long_description = fh.read()
-
 setuptools.setup(
     name="IuKey",
     version="1.2.0",
     author="sanbo",
     author_email="sanbo.xyz@gmail.com",
     description="Idea key Update. support:LanZouCloud API-2.5.8.2",
-    long_description=long_description,
+    long_description="register idea",
     long_description_content_type="text/markdown",
     url="https://github.com/hhhaiai/IuKey",
     packages=setuptools.find_packages(),
     install_requires=[
         "requests",
-        "requests_toolbelt"
+        "requests_toolbelt",
+        "lanzou-api"
     ],
     classifiers=[
         "Programming Language :: Python :: 3",
