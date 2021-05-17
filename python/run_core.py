@@ -107,7 +107,7 @@ if __name__ == '__main__':
     print("\tf_path: {}".format(f_path))
     f_name = get_file_name(f_path)
 
-    final_fn = "{}.zip".format(str(time.strftime("%y%m%d-%H%M%S")))
+    final_fn = "{}.zip".format(str(time.strftime("%Y%m%d-%H%M%S")))
     os.rename(f_name, final_fn)
 
     print("\tfile_path: [{}]".format(final_fn))
